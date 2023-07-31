@@ -56,7 +56,7 @@
 // console.log(yearsUntilRetirement(1980, 'Bob'));
 
 // Functions calling other functions
-function cutFruitPieces(fruit) {
+/* function cutFruitPieces(fruit) {
 	return fruit * 4;
 }
 
@@ -68,4 +68,57 @@ function fruitProcessor(apples, oranges) {
 	// Returning a value
 	return juice;
 }
-console.log(fruitProcessor(2, 3));
+console.log(fruitProcessor(2, 3)); */
+
+// Arrays
+const friends = ['Luis', 'Santy', 'Omar'];
+console.log(friends[0]);
+console.log(friends.length);
+console.log(friends[friends.length - 1]);
+
+// Exercise
+const calcAge = function (birthYear) {
+	return 2037 - birthYear;
+};
+
+const years = [1991, 1984, 2008, 2020];
+
+const age1 = calcAge(years[0]);
+const age2 = calcAge(years[1]);
+const age3 = calcAge(years[2]);
+
+const ages = [age1, age2, age3];
+console.log(ages);
+
+// Objects
+const jonas = {
+	firstName: 'Jonas',
+	lastName: 'Schmedtmann',
+	birthYear: 1991,
+	job: 'teacher',
+	friends: ['Michael', 'Peter', 'Steven'],
+	hasDriversLicense: true,
+	calcAge: function () {
+		this.age = 2037 - this.birthYear;
+		return this.age; // Returning the value is a good practice
+	},
+	getSummary: function () {
+		return `${this.firstName} is a ${this.calcAge()}-year old ${
+			this.job
+		}, and he ${
+			this.hasDriversLicense
+				? "has a driver's license"
+				: "doesn't have a driver's license"
+		}.`;
+	},
+};
+
+console.log(jonas.getSummary());
+
+const interestedIn = prompt('What do you want to know?');
+
+if (jonas[interestedIn]) {
+	console.log(jonas[interestedIn]);
+} else {
+	console.log('Sorry, that info does no exist.');
+}
