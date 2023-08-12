@@ -9,8 +9,8 @@
 
 // 		if (birthYear >= 1981 && birthYear <= 1996) {
 // 			const firstName = 'Steven';
-// 			var millenial = true;
-// 			const str = `Oh, and you are a millenial, ${firstName}`;
+// 			var millennial = true;
+// 			const str = `Oh, and you are a millennial, ${firstName}`;
 // 			console.log(str);
 
 // 			function add(a, b) {
@@ -18,7 +18,7 @@
 // 			}
 // 			// output = 'New Output!';
 // 		}
-// 		console.log(millenial);
+// 		console.log(millennial);
 // 		// add(2, 3);
 // 		console.log(output);
 // 	}
@@ -92,19 +92,19 @@
 // 	// calcAge: function () {
 // 	// 	console.log(2037 - this.year); // Points to the object that contains the method.
 // 	// 	const self = this; // This ensures that the this keyword inside the following function can access the year variable. We could use an arrow function instead.
-// 	// 	const isMillenial = function () {
+// 	// 	const isMillennial = function () {
 // 	// 		console.log(self.year >= 1981 && self.year <= 1996);
 // 	// 	};
-// 	// 	isMillenial(); // The this keyword will point to the calcAge function
+// 	// 	isMillennial(); // The this keyword will point to the calcAge function
 // 	// },
 
 // 	// Solution 2:
 // 	calcAge: function () {
 // 		console.log(2037 - this.year); // Points to the object that contains the method.
-// 		const isMillenial = () => {
+// 		const isMillennial = () => {
 // 			console.log(this.year >= 1981 && this.year <= 1996);
 // 		};
-// 		isMillenial(); // The this keyword will point to the Jonas object
+// 		isMillennial(); // The this keyword will point to the Jonas object
 // 	},
 // 	greet: () => console.log(`Hey, ${this.firstName}`), // This will point to the global scope, and will return undefined since the window object does not have this variable defined.
 // };
@@ -112,14 +112,51 @@
 // jonas.calcAge();
 
 // The arguments keyword
-const addExpr = function (a, b) {
-	console.log(arguments); // Prints the arguments array.
-	return a + b;
-};
-addExpr(2, 5);
+// const addExpr = function (a, b) {
+// 	console.log(arguments); // Prints the arguments array.
+// 	return a + b;
+// };
+// addExpr(2, 5);
 
-var addArrow = (a, b) => {
-	console.log(arguments); // Returns a ReferenceError.
-	return a + b;
+// var addArrow = (a, b) => {
+// 	console.log(arguments); // Returns a ReferenceError.
+// 	return a + b;
+// };
+// addArrow(2, 5);
+
+// Primitives vs Objects
+// Primitive types
+let lastName = 'Williams';
+let oldLastName = lastName;
+lastName = 'Davis';
+// console.log(lastName, oldLastName);
+
+// Reference types
+const jessica = {
+	firstName: 'Jessica',
+	lastName: 'Williams',
+	age: 27,
 };
-addArrow(2, 5);
+
+const marriedJessica = jessica;
+marriedJessica.lastName = 'Davis';
+console.log(`Before marriage: ${jessica.lastName}`);
+console.log(`After marriage: ${(marriedJessica, lastName)}`);
+
+// Copying objects
+const jessica2 = {
+	firstName: 'Jessica',
+	lastName: 'Williams',
+	age: 27,
+	family: ['Alice', 'Bob'],
+};
+
+// Shallow-copying all the values from the jessica object into an empty object
+const jessicaCopy = Object.assign({}, jessica2);
+jessicaCopy.lastName = 'Davis';
+jessicaCopy.family.push('Mary');
+jessicaCopy.family.push('John');
+
+// This will push to both objects
+console.log('Before marriage: ', jessica2);
+console.log('After marriage: ', jessicaCopy);
