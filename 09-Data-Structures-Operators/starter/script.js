@@ -25,6 +25,11 @@ const restaurant = {
 			`Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delirever to ${address} at ${time}`
 		);
 	},
+	oderPasta: function (ing1, ing2, ing3) {
+		console.log(
+			`Here is your delicious pasta with ${ing1}, ${ing2} and ${ing3}.`
+		);
+	},
 
 	openingHours: {
 		thu: {
@@ -53,34 +58,79 @@ restaurant.orderDelivery({
 	starterIndex: 2,
 });
 
-// Destructuring objects
-const { name, openingHours, categories } = restaurant;
-console.log(name, openingHours, categories);
+// Rest pattern and parameters
 
-// Using custom names
-const {
-	name: retaurantName,
-	openingHours: hours,
-	categories: tags,
-} = restaurant;
-console.log(retaurantName, hours, tags);
+// // Destructuring objects
+// const { name, openingHours, categories } = restaurant;
+// console.log(name, openingHours, categories);
 
-// Setting default values
-const { menu = [], starterMenu: starters = [] } = restaurant;
-console.log(menu, starters);
+// // Using custom names
+// const {
+// 	name: retaurantName,
+// 	openingHours: hours,
+// 	categories: tags,
+// } = restaurant;
+// console.log(retaurantName, hours, tags);
 
-// Mutating variables
-let a = 111;
-let b = 999;
-const obj = { a: 23, b: 7, c: 14 };
-({ a, b } = obj); // The parenthesis is needed so that JS compiles this correctly.
-console.log(a, b);
+// // Setting default values
+// const { menu = [], starterMenu: starters = [] } = restaurant;
+// console.log(menu, starters);
 
-// Nested objects
-const {
-	fri: { open, close },
-} = openingHours;
-console.log(open, close);
+// // Mutating variables
+// let a = 111;
+// let b = 999;
+// const obj = { a: 23, b: 7, c: 14 };
+// ({ a, b } = obj); // The parenthesis is needed so that JS compiles this correctly.
+// console.log(a, b);
+
+// // Nested objects
+// const {
+// 	fri: { open, close },
+// } = openingHours;
+// console.log(open, close);
+
+// The spread operator
+// const arr = [7, 8, 9];
+// const newArr = [1, 2, ...arr];
+// console.log(newArr);
+// console.log(...newArr);
+
+// const newMenu = [...restaurant.mainMenu, 'Gnocci'];
+// console.log(newMenu);
+
+// // Spread for creating shallow copies
+// const mainMenuCopy = [...restaurant.mainMenu];
+
+// // Join 2 arrays or more
+// const arr1 = [1, 2, 3];
+// const arr2 = [4, 5, 6];
+// const arr3 = [...arr1, ...arr2];
+// console.log(arr3);
+
+// // Strings with spread
+// const str1 = 'Jonas';
+// const letters = [...str1, '', 'S.'];
+// console.log(letters);
+
+// // Spread in functions
+// const ingredients = [
+// 	prompt("Let's make pasta! Ingredient 1?"),
+// 	prompt('Ingredient 2?'),
+// 	prompt('Ingredient 3?'),
+// ];
+// console.log(ingredients);
+
+// restaurant.oderPasta(...ingredients);
+
+// // Objects
+// const newRestaurant = { foundedIn: 1998, ...restaurant, founder: 'Guiseppe' };
+// console.log(newRestaurant);
+
+// // Shallow copies
+// const copyRestaurant = { ...newRestaurant };
+// copyRestaurant.foundedIn = 1500;
+// copyRestaurant.mainMenu[0] = 'asdfasdf';
+// console.log(copyRestaurant);
 
 // // Array Destructuring
 // const arr = [2, 3, 4];
