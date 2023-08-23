@@ -30,6 +30,10 @@ const restaurant = {
 			`Here is your delicious pasta with ${ing1}, ${ing2} and ${ing3}.`
 		);
 	},
+	orderPizza: function (mainIngredient, ...otherIngredients) {
+		console.log(mainIngredient);
+		console.log(otherIngredients);
+	},
 
 	openingHours: {
 		thu: {
@@ -58,7 +62,57 @@ restaurant.orderDelivery({
 	starterIndex: 2,
 });
 
-// Rest pattern and parameters
+// Short-circuiting with the AND operator
+// console.log(0 && 'Jonas');
+// console.log(7 && 'Jonas');
+// console.log(7 && 'Jonas' && 8 && undefined && 'Hello');
+// console.log(7 && 'Jonas' && 8 && 'Hello');
+
+// Short-circuiting with the OR operator
+// console.log(3 || 'Jonas');
+// console.log('' || 'Erick');
+// console.log(undefined || null);
+// restaurant.numGuests = 0;
+// restaurant.numGuests = restaurant.numGuests || 10;
+// console.log(restaurant);
+
+// The nullish coalescing operator
+restaurant.numGuestsCorrect = 0;
+restaurant.numGuestsCorrect = restaurant.numGuestsCorrect ?? 10;
+console.log(restaurant);
+
+// // Returns 'Hello'
+// console.log(undefined || 0 || '' || 'Hello' || 23 || null);
+// console.log(undefined || 0 || '' || null);
+
+// // Rest pattern
+// const [a, b, ...others] = [1, 2, 3, 4, 5];
+// console.log(a, b, others);
+
+// const [pizza, , risotto, ...otherFood] = [
+// 	...restaurant.mainMenu,
+// 	...restaurant.starterMenu,
+// ];
+// console.log(pizza, risotto, otherFood);
+
+// // Objects
+// const { sat, ...weekdays } = restaurant.openingHours;
+// console.log(sat, weekdays);
+
+// // Rest parameters with functions
+// const add = function (...numbers) {
+// 	let sum = 0;
+// 	for (let i = 0; i < numbers.length; i++) {
+// 		sum += numbers[i];
+// 	}
+// 	console.log(sum);
+// };
+
+// add(2, 3);
+// add(5, 3, 7, 2);
+// add(8, 2, 5, 3, 2, 1, 4);
+
+// restaurant.orderPizza('Cheese', 'Pepperoni', 'Pineapple');
 
 // // Destructuring objects
 // const { name, openingHours, categories } = restaurant;
