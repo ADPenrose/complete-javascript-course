@@ -57,6 +57,90 @@ const restaurant = {
 	openingHours,
 };
 
+// Creating a map and populating it
+// const question = new Map([
+// 	['question', 'What is the best programming language in the world?'],
+// 	[1, 'C'],
+// 	[2, 'Java'],
+// 	[3, 'JavaScript'],
+// 	['correct', 3],
+// 	[true, 'Correct!'],
+// 	[false, 'Try again!'],
+// ]);
+// // Convert object to map
+// console.log(Object.entries(openingHours));
+// const hoursMap = new Map(Object.entries(openingHours));
+// console.log(hoursMap);
+
+// // Iterating over a map
+// console.log(question.get('question'));
+// for (const [key, value] of question) {
+// 	if (typeof key === 'number') console.log(`Answer ${key}: ${value}`);
+// }
+// const answer = Number(prompt('Your answer: '));
+
+// console.log(
+// 	answer === question.get('correct') ? question.get(true) : question.get(false)
+// );
+
+// // Convert map to array
+// console.log([...question]);
+
+// // Using methods to get some info
+// console.log([...question.keys()]);
+// console.log([...question.values()]);
+
+//////////////////
+// // Maps
+// const restMap = new Map();
+// restMap.set('name', 'Classico Italiano');
+// restMap.set(1, 'Firenze, Italy');
+// console.log(restMap.set(2, 'Lisbon, Portugal'));
+// // Chaining set instructions
+// restMap
+// 	.set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+// 	.set('open', 11)
+// 	.set('close', 23)
+// 	.set(true, 'We are open :D')
+// 	.set(false, 'We are closed :(');
+
+// console.log(restMap.get('name'));
+// console.log(restMap.get(true));
+// // Combining maps with logical operators
+// const time = 21;
+// console.log(
+// 	restMap.get(time > restMap.get('open') && time < restMap.get('close'))
+// );
+// // Checking if a map contains a certain key
+// console.log(restMap.has('categories'));
+// // Removing elements from a map
+// restMap.delete('categories');
+// // Checking the size of a map
+// console.log(restMap.size);
+// // Using arrays as a map key
+// const restArray = [1, 2];
+// restMap.set(restArray, 'Test');
+// console.log(restMap.get(restArray));
+
+/////////////////////////////////////////////
+// Sets
+// const orderedSet = new Set(['Pasta', 'Pizza', 'Pizza', 'Risotto', 'Pasta']);
+// console.log(orderedSet);
+// console.log(orderedSet.size);
+// console.log(orderedSet.has('Pizza'));
+// orderedSet.add('Pizza');
+// orderedSet.delete('Pizza');
+
+// // Looping through sets
+// for (const order of orderedSet) {
+// 	console.log(order);
+// }
+
+// // Creating an array from a set
+// const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
+// const staffUnique = [...new Set(staff)];
+// console.log(staffUnique);
+
 ///////////////////////////////////////
 // Coding Challenge #2
 
@@ -81,74 +165,74 @@ BONUS: Create an object called 'scorers' which contains the names of the players
 GOOD LUCK 😀
 */
 
-const game = {
-	team1: 'Bayern Munich',
-	team2: 'Borrussia Dortmund',
-	players: [
-		[
-			'Neuer',
-			'Pavard',
-			'Martinez',
-			'Alaba',
-			'Davies',
-			'Kimmich',
-			'Goretzka',
-			'Coman',
-			'Muller',
-			'Gnarby',
-			'Lewandowski',
-		],
-		[
-			'Burki',
-			'Schulz',
-			'Hummels',
-			'Akanji',
-			'Hakimi',
-			'Weigl',
-			'Witsel',
-			'Hazard',
-			'Brandt',
-			'Sancho',
-			'Gotze',
-		],
-	],
-	score: '4:0',
-	scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
-	date: 'Nov 9th, 2037',
-	odds: {
-		team1: 1.33,
-		x: 3.25,
-		team2: 6.5,
-	},
-};
+// const game = {
+// 	team1: 'Bayern Munich',
+// 	team2: 'Borrussia Dortmund',
+// 	players: [
+// 		[
+// 			'Neuer',
+// 			'Pavard',
+// 			'Martinez',
+// 			'Alaba',
+// 			'Davies',
+// 			'Kimmich',
+// 			'Goretzka',
+// 			'Coman',
+// 			'Muller',
+// 			'Gnarby',
+// 			'Lewandowski',
+// 		],
+// 		[
+// 			'Burki',
+// 			'Schulz',
+// 			'Hummels',
+// 			'Akanji',
+// 			'Hakimi',
+// 			'Weigl',
+// 			'Witsel',
+// 			'Hazard',
+// 			'Brandt',
+// 			'Sancho',
+// 			'Gotze',
+// 		],
+// 	],
+// 	score: '4:0',
+// 	scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+// 	date: 'Nov 9th, 2037',
+// 	odds: {
+// 		team1: 1.33,
+// 		x: 3.25,
+// 		team2: 6.5,
+// 	},
+// };
 
-// 1.
-for (const [goal, player] of game.scored.entries()) {
-	console.log(`Goal ${goal + 1}: ${player}`);
-}
+// // 1.
+// for (const [goal, player] of game.scored.entries()) {
+// 	console.log(`Goal ${goal + 1}: ${player}`);
+// }
 
-// 2.
-let sumOdds = 0;
-const arrayOdds = Object.values(game.odds);
-for (const odd of arrayOdds) {
-	sumOdds += odd;
-}
-console.log(sumOdds / arrayOdds.length);
+// // 2.
+// let sumOdds = 0;
+// const arrayOdds = Object.values(game.odds);
+// for (const odd of arrayOdds) {
+// 	sumOdds += odd;
+// }
+// console.log(sumOdds / arrayOdds.length);
 
-// 3.
-for (const [team, odd] of Object.entries(game.odds)) {
-	const teamStr = team === 'x' ? 'draw' : `victory ${game[team]}`;
-	console.log(`Odd of ${teamStr}: ${odd}`);
-}
+// // 3.
+// for (const [team, odd] of Object.entries(game.odds)) {
+// 	const teamStr = team === 'x' ? 'draw' : `victory ${game[team]}`;
+// 	console.log(`Odd of ${teamStr}: ${odd}`);
+// }
 
-// 4.
-const scorers = {};
+// // 4.
+// const scorers = {};
 
-for (const player of game.scored) {
-	scorers[player] ? scorers[player]++ : (scorers[player] = 1);
-}
+// for (const player of game.scored) {
+// 	scorers[player] ? scorers[player]++ : (scorers[player] = 1);
+// }
 
-console.log(scorers);
+// console.log(scorers);
 
 //////////////////////////////////////
 // Looping objects
