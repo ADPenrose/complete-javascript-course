@@ -57,6 +57,153 @@ const restaurant = {
 	openingHours,
 };
 
+const airline = 'TAP Air Portugal';
+// const plane = 'A320';
+// // Working with strings
+// console.log(airline[1]);
+// // Accesing the length of a string
+// console.log(plane.length);
+// // Getting the position in which a certain string is
+// console.log(airline.indexOf('r'));
+// // Getting the position of the last occurrence of an element.
+// console.log(airline.lastIndexOf('r'));
+// // Getting the index in which a word starts
+// console.log(airline.indexOf('Portugal'));
+// // Slicing
+// console.log(airline.slice(4));
+// console.log(airline.slice(4, 7));
+// // Extracting the first word.
+// console.log(airline.slice(0, airline.indexOf(' ')));
+// // Extracting the last word
+// console.log(airline.slice(airline.lastIndexOf(' ') + 1));
+// // Slicing with negative arguments
+// console.log(airline.slice(-2));
+// console.log(airline.slice(1, -1));
+
+// const checkMiddleSeat = function (seat) {
+// 	// B and E are middle seats
+// 	const s = seat.slice(-1);
+// 	s === 'E' || s === 'B'
+// 		? console.log('It is a middle seat')
+// 		: console.log('It is NOT a middle seat.');
+// };
+// checkMiddleSeat('11B');
+// checkMiddleSeat('23C');
+// checkMiddleSeat('3E');
+
+// To lower/upper case
+console.log(airline.toLowerCase());
+console.log(airline.toUpperCase());
+
+// Getting rid of white space and trailing chars.
+const email = ' Hello@adp.Dev \n';
+console.log(email.toLowerCase().trim());
+
+// Replacing
+const priceGB = '288,87£';
+const priceUS = priceGB.replace('£', '$').replace(',', '.');
+console.log(priceGB);
+console.log(priceUS);
+
+// Replacing all the occurrences using the replaceAll method.
+const announcement =
+	'All passengers come to boarding door 23. Boarding door 23!';
+console.log(announcement.replaceAll('door', 'gate'));
+
+// Replacing all the occurrences using RegEx.
+console.log(announcement.replace(/door/g, 'gate'));
+
+// Booleans
+const plane = 'A320neo';
+console.log(plane.includes('A320'));
+console.log(plane.startsWith('Airb'));
+console.log(plane.endsWith('neo'));
+
+// Practice exercise
+const checkBaggage = function (items) {
+	const baggage = items.toLowerCase();
+	if (baggage.includes('knife') || baggage.includes('gun')) {
+		console.log('You are not allowed on board.');
+	} else {
+		console.log('You are allowed ob board.');
+	}
+};
+// checkBaggage('I have a laptop, some Food and a pocket Knife');
+// checkBaggage('Socks and camera');
+// checkBaggage('Got some snacks and a gun for protection');
+
+// String split
+console.log('a+very+nice+string'.split('+'));
+const [firstName, lastName] = 'Arturo Avila'.split(' ');
+const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' ');
+console.log(newName);
+
+// Padding a string
+const message = 'Go to gate 23!';
+console.log(message.padStart(25, '+'));
+console.log(message.padEnd(25, '+'));
+
+// Using padding for a real world application
+const maskCreditCard = function (number) {
+	// Another way of turning a number into a string.
+	const str = number + '';
+	const last = str.slice(-4);
+	return last.padStart(str.length, '*');
+};
+
+console.log(maskCreditCard(12039847012413));
+console.log(maskCreditCard('123412341234'));
+
+// Repeat a string
+const message2 = 'Bad weather... All Departures Delayed... ';
+console.log(message2.repeat(5));
+///////////////////////////////////////
+// Coding Challenge #3
+
+/* 
+Let's continue with our football betting app! This time, we have a map with a log of the events that happened during the game. The values are the events themselves, and the keys are the minutes in which each event happened (a football game has 90 minutes plus some extra time).
+
+1. Create an array 'events' of the different game events that happened (no duplicates)
+2. After the game has finished, is was found that the yellow card from minute 64 was unfair. So remove this event from the game events log.
+3. Print the following string to the console: "An event happened, on average, every 9 minutes" (keep in mind that a game has 90 minutes)
+4. Loop over the events and log them to the console, marking whether it's in the first half or second half (after 45 min) of the game, like this:
+      [FIRST HALF] 17: ⚽️ GOAL
+
+GOOD LUCK 😀
+*/
+
+// const gameEvents = new Map([
+// 	[17, '⚽️ GOAL'],
+// 	[36, '🔁 Substitution'],
+// 	[47, '⚽️ GOAL'],
+// 	[61, '🔁 Substitution'],
+// 	[64, '🔶 Yellow card'],
+// 	[69, '🔴 Red card'],
+// 	[70, '🔁 Substitution'],
+// 	[72, '🔁 Substitution'],
+// 	[76, '⚽️ GOAL'],
+// 	[80, '⚽️ GOAL'],
+// 	[92, '🔶 Yellow card'],
+// ]);
+
+// // 1.
+// const events = [...new Set(gameEvents.values())];
+// console.log(events);
+
+// // 2.
+// gameEvents.delete(64);
+// console.log(gameEvents);
+
+// // 3.
+// const avgEvents = 90 / gameEvents.size;
+// console.log(`An event happened, on average, evey ${avgEvents} minutes.`);
+
+// // 4.
+// for (const [min, event] of gameEvents) {
+// 	const currentHalf = min < 45 ? 'FIRST' : 'SECOND';
+// 	console.log(`[${currentHalf} HALF] ${min}: ${event}`);
+// }
+
 // Creating a map and populating it
 // const question = new Map([
 // 	['question', 'What is the best programming language in the world?'],
