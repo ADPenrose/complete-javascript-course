@@ -91,72 +91,119 @@ const airline = 'TAP Air Portugal';
 // checkMiddleSeat('23C');
 // checkMiddleSeat('3E');
 
-// To lower/upper case
-console.log(airline.toLowerCase());
-console.log(airline.toUpperCase());
+//////////////////////////////////////
+// Coding Challenge #4
 
-// Getting rid of white space and trailing chars.
-const email = ' Hello@adp.Dev \n';
-console.log(email.toLowerCase().trim());
+/* 
+Write a program that receives a list of variable names written in underscore_case and convert them to camelCase.
 
-// Replacing
-const priceGB = '288,87£';
-const priceUS = priceGB.replace('£', '$').replace(',', '.');
-console.log(priceGB);
-console.log(priceUS);
+The input will come from a textarea inserted into the DOM (see code below), and conversion will happen when the button is pressed.
 
-// Replacing all the occurrences using the replaceAll method.
-const announcement =
-	'All passengers come to boarding door 23. Boarding door 23!';
-console.log(announcement.replaceAll('door', 'gate'));
+THIS TEST DATA (pasted to textarea)
+underscore_case
+first_name
+Some_Variable 
+calculate_AGE
+delayed_departure
 
-// Replacing all the occurrences using RegEx.
-console.log(announcement.replace(/door/g, 'gate'));
+SHOULD PRODUCE THIS OUTPUT (5 separate console.log outputs)
+underscoreCase      ✅
+firstName           ✅✅
+someVariable        ✅✅✅
+calculateAge        ✅✅✅✅
+delayedDeparture    ✅✅✅✅✅
 
-// Booleans
-const plane = 'A320neo';
-console.log(plane.includes('A320'));
-console.log(plane.startsWith('Airb'));
-console.log(plane.endsWith('neo'));
+HINT 1: Remember which character defines a new line in the textarea 😉
+HINT 2: The solution only needs to work for a variable made out of 2 words, like a_b
+HINT 3: Start without worrying about the ✅. Tackle that only after you have the variable name conversion working 😉
+HINT 4: This challenge is difficult on purpose, so start watching the solution in case you're stuck. Then pause and continue!
 
-// Practice exercise
-const checkBaggage = function (items) {
-	const baggage = items.toLowerCase();
-	if (baggage.includes('knife') || baggage.includes('gun')) {
-		console.log('You are not allowed on board.');
-	} else {
-		console.log('You are allowed ob board.');
+Afterwards, test with your own test data!
+
+GOOD LUCK 😀
+*/
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+
+document.querySelector('button').addEventListener('click', function () {
+	// Splitting the input
+	const textArray = document.querySelector('textarea').value.split('\n');
+	// Looping through each line of the textarea, and turning it into cammelCase
+	for (const word of textArray) {
+		const [a, b] = word.toLowerCase().split('_');
+		const output = a + b[0].toUpperCase() + b.slice(1);
+		console.log(
+			`${output.padEnd(20)}${'✅'.repeat(textArray.indexOf(word) + 1)}`
+		);
 	}
-};
-// checkBaggage('I have a laptop, some Food and a pocket Knife');
-// checkBaggage('Socks and camera');
-// checkBaggage('Got some snacks and a gun for protection');
+});
 
-// String split
-console.log('a+very+nice+string'.split('+'));
-const [firstName, lastName] = 'Arturo Avila'.split(' ');
-const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' ');
-console.log(newName);
+// // To lower/upper case
+// console.log(airline.toLowerCase());
+// console.log(airline.toUpperCase());
 
-// Padding a string
-const message = 'Go to gate 23!';
-console.log(message.padStart(25, '+'));
-console.log(message.padEnd(25, '+'));
+// // Getting rid of white space and trailing chars.
+// const email = ' Hello@adp.Dev \n';
+// console.log(email.toLowerCase().trim());
 
-// Using padding for a real world application
-const maskCreditCard = function (number) {
-	// Another way of turning a number into a string.
-	const str = number + '';
-	const last = str.slice(-4);
-	return last.padStart(str.length, '*');
-};
+// // Replacing
+// const priceGB = '288,87£';
+// const priceUS = priceGB.replace('£', '$').replace(',', '.');
+// console.log(priceGB);
+// console.log(priceUS);
 
-console.log(maskCreditCard(12039847012413));
-console.log(maskCreditCard('123412341234'));
+// // Replacing all the occurrences using the replaceAll method.
+// const announcement =
+// 	'All passengers come to boarding door 23. Boarding door 23!';
+// console.log(announcement.replaceAll('door', 'gate'));
 
-// Repeat a string
-const message2 = 'Bad weather... All Departures Delayed... ';
-console.log(message2.repeat(5));
+// // Replacing all the occurrences using RegEx.
+// console.log(announcement.replace(/door/g, 'gate'));
+
+// // Booleans
+// const plane = 'A320neo';
+// console.log(plane.includes('A320'));
+// console.log(plane.startsWith('Airb'));
+// console.log(plane.endsWith('neo'));
+
+// // Practice exercise
+// const checkBaggage = function (items) {
+// 	const baggage = items.toLowerCase();
+// 	if (baggage.includes('knife') || baggage.includes('gun')) {
+// 		console.log('You are not allowed on board.');
+// 	} else {
+// 		console.log('You are allowed ob board.');
+// 	}
+// };
+// // checkBaggage('I have a laptop, some Food and a pocket Knife');
+// // checkBaggage('Socks and camera');
+// // checkBaggage('Got some snacks and a gun for protection');
+
+// // String split
+// console.log('a+very+nice+string'.split('+'));
+// const [firstName, lastName] = 'Arturo Avila'.split(' ');
+// const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' ');
+// console.log(newName);
+
+// // Padding a string
+// const message = 'Go to gate 23!';
+// console.log(message.padStart(25, '+'));
+// console.log(message.padEnd(25, '+'));
+
+// // Using padding for a real world application
+// const maskCreditCard = function (number) {
+// 	// Another way of turning a number into a string.
+// 	const str = number + '';
+// 	const last = str.slice(-4);
+// 	return last.padStart(str.length, '*');
+// };
+
+// console.log(maskCreditCard(12039847012413));
+// console.log(maskCreditCard('123412341234'));
+
+// // Repeat a string
+// const message2 = 'Bad weather... All Departures Delayed... ';
+// console.log(message2.repeat(5));
 ///////////////////////////////////////
 // Coding Challenge #3
 
