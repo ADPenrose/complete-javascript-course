@@ -4,60 +4,73 @@
 const flights =
 	'_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
-// Data needed for first part of the section
+const getCode = (str) => str.slice(0, 3).toUpperCase();
 
-const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+for (const flight of flights.split('+')) {
+	const [type, from, to, time] = flight.split(';');
+	const output = `${type.startsWith('_Delayed') ? '🔴' : ''} ${type
+		.slice(1)
+		.replace('_', ' ')} from ${getCode(from)} to ${getCode(to)} (${time.replace(
+		':',
+		'h'
+	)})`.padStart(45);
+	console.log(output);
+}
 
-const openingHours = {
-	[weekdays[3]]: {
-		open: 12,
-		close: 22,
-	},
-	[weekdays[4]]: {
-		open: 11,
-		close: 23,
-	},
-	[weekdays[5]]: {
-		open: 0, // Open 24 hours
-		close: 24,
-	},
-};
+// // Data needed for first part of the section
 
-const restaurant = {
-	name: 'Classico Italiano',
-	location: 'Via Angelo Tavanti 23, Firenze, Italy',
-	categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
-	starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
-	mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-	// New way of writing methods
-	order(starterIndex, mainIndex) {
-		return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
-	},
-	// Destructuring the arguments of the function as they are passed
-	orderDelivery: function ({
-		starterIndex = 1,
-		mainIndex = 0,
-		time = '20:00',
-		address,
-	}) {
-		console.log(
-			`Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delirever to ${address} at ${time}`
-		);
-	},
-	oderPasta: function (ing1, ing2, ing3) {
-		console.log(
-			`Here is your delicious pasta with ${ing1}, ${ing2} and ${ing3}.`
-		);
-	},
-	orderPizza: function (mainIngredient, ...otherIngredients) {
-		console.log(mainIngredient);
-		console.log(otherIngredients);
-	},
-	// ES6 enhances object literals. Creates a property named openingHours, which points to that external object
-	openingHours,
-};
+// const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
-const airline = 'TAP Air Portugal';
+// const openingHours = {
+// 	[weekdays[3]]: {
+// 		open: 12,
+// 		close: 22,
+// 	},
+// 	[weekdays[4]]: {
+// 		open: 11,
+// 		close: 23,
+// 	},
+// 	[weekdays[5]]: {
+// 		open: 0, // Open 24 hours
+// 		close: 24,
+// 	},
+// };
+
+// const restaurant = {
+// 	name: 'Classico Italiano',
+// 	location: 'Via Angelo Tavanti 23, Firenze, Italy',
+// 	categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+// 	starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+// 	mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+// 	// New way of writing methods
+// 	order(starterIndex, mainIndex) {
+// 		return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+// 	},
+// 	// Destructuring the arguments of the function as they are passed
+// 	orderDelivery: function ({
+// 		starterIndex = 1,
+// 		mainIndex = 0,
+// 		time = '20:00',
+// 		address,
+// 	}) {
+// 		console.log(
+// 			`Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delirever to ${address} at ${time}`
+// 		);
+// 	},
+// 	oderPasta: function (ing1, ing2, ing3) {
+// 		console.log(
+// 			`Here is your delicious pasta with ${ing1}, ${ing2} and ${ing3}.`
+// 		);
+// 	},
+// 	orderPizza: function (mainIngredient, ...otherIngredients) {
+// 		console.log(mainIngredient);
+// 		console.log(otherIngredients);
+// 	},
+// 	// ES6 enhances object literals. Creates a property named openingHours, which points to that external object
+// 	openingHours,
+// };
+
+// const airline = 'TAP Air Portugal';
 // const plane = 'A320';
 // // Working with strings
 // console.log(airline[1]);
@@ -122,21 +135,21 @@ Afterwards, test with your own test data!
 
 GOOD LUCK 😀
 */
-document.body.append(document.createElement('textarea'));
-document.body.append(document.createElement('button'));
+// document.body.append(document.createElement('textarea'));
+// document.body.append(document.createElement('button'));
 
-document.querySelector('button').addEventListener('click', function () {
-	// Splitting the input
-	const textArray = document.querySelector('textarea').value.split('\n');
-	// Looping through each line of the textarea, and turning it into cammelCase
-	for (const word of textArray) {
-		const [a, b] = word.toLowerCase().split('_');
-		const output = a + b[0].toUpperCase() + b.slice(1);
-		console.log(
-			`${output.padEnd(20)}${'✅'.repeat(textArray.indexOf(word) + 1)}`
-		);
-	}
-});
+// document.querySelector('button').addEventListener('click', function () {
+// 	// Splitting the input
+// 	const textArray = document.querySelector('textarea').value.split('\n');
+// 	// Looping through each line of the textarea, and turning it into cammelCase
+// 	for (const word of textArray) {
+// 		const [a, b] = word.toLowerCase().split('_');
+// 		const output = a + b[0].toUpperCase() + b.slice(1);
+// 		console.log(
+// 			`${output.padEnd(20)}${'✅'.repeat(textArray.indexOf(word) + 1)}`
+// 		);
+// 	}
+// });
 
 // // To lower/upper case
 // console.log(airline.toLowerCase());
