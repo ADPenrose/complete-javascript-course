@@ -1,4 +1,10 @@
 'use strict';
+// Immediately Invoked Function Expressions
+// (function () {
+//   console.log('This will never run again!');
+// })();
+// // IIFE with arrow function
+// (() => console.log('This also will never run again!'))();
 
 // const bookings = [];
 
@@ -194,44 +200,44 @@ BONUS TEST DATA 2: [1, 5, 3, 9, 6, 1]
 
 GOOD LUCK 😀
 */
-const poll = {
-  question: 'What is your favourite programming language?',
-  options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
-  // This generates [0, 0, 0, 0]. More in the next section 😃
-  answers: new Array(4).fill(0),
-  registerNewAnswer() {
-    const optionSelected = Number(
-      prompt(
-        `${this.question}\n${this.options.join('\n')}\n(Write option number)`
-      )
-    );
-    if (
-      typeof optionSelected !== 'number' ||
-      optionSelected < 0 ||
-      optionSelected > 3
-    ) {
-      alert('Invalid Option! Try again.');
-    } else {
-      this.answers[optionSelected]++;
-      this.displayResults();
-    }
-  },
-  displayResults(type = 'array') {
-    if (type === 'string') {
-      console.log(`Poll results are ${this.answers.join(', ')}.`);
-    } else if (type === 'array') {
-      console.log(this.answers);
-    }
-  },
-};
+// const poll = {
+//   question: 'What is your favourite programming language?',
+//   options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
+//   // This generates [0, 0, 0, 0]. More in the next section 😃
+//   answers: new Array(4).fill(0),
+//   registerNewAnswer() {
+//     const optionSelected = Number(
+//       prompt(
+//         `${this.question}\n${this.options.join('\n')}\n(Write option number)`
+//       )
+//     );
+//     if (
+//       typeof optionSelected !== 'number' ||
+//       optionSelected < 0 ||
+//       optionSelected > 3
+//     ) {
+//       alert('Invalid Option! Try again.');
+//     } else {
+//       this.answers[optionSelected]++;
+//       this.displayResults();
+//     }
+//   },
+//   displayResults(type = 'array') {
+//     if (type === 'string') {
+//       console.log(`Poll results are ${this.answers.join(', ')}.`);
+//     } else if (type === 'array') {
+//       console.log(this.answers);
+//     }
+//   },
+// };
 
-// Calling the poll.registerNewAnswer method whenever the user clicks on a button
-const answerButton = document
-  .querySelector('.poll')
-  .addEventListener('click', poll.registerNewAnswer.bind(poll));
+// // Calling the poll.registerNewAnswer method whenever the user clicks on a button
+// const answerButton = document
+//   .querySelector('.poll')
+//   .addEventListener('click', poll.registerNewAnswer.bind(poll));
 
-// Bonus
-poll.displayResults.call({ answers: [5, 2, 3] }, 'string');
-poll.displayResults.call({ answers: [5, 2, 3] }, 'array');
-poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] }, 'string');
-poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] }, 'array');
+// // Bonus
+// poll.displayResults.call({ answers: [5, 2, 3] }, 'string');
+// poll.displayResults.call({ answers: [5, 2, 3] }, 'array');
+// poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] }, 'string');
+// poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] }, 'array');
