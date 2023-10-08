@@ -71,7 +71,7 @@ const displayMovements = function (movements) {
       <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-      <div class="movements__value">${mov}</div>
+      <div class="movements__value">${mov}€</div>
     </div>
     `;
 
@@ -86,6 +86,31 @@ const calcDisplayBalance = function (mov) {
 };
 calcDisplayBalance(account1.movements);
 
+const calcDisplaySummary = function (movements) {
+  // Incomes
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov);
+
+  // Outcomes
+  const outcomes = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov);
+
+  // Interest
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => deposit * 0.012)
+    .filter(int => int >= 1)
+    .reduce((acc, int) => acc + int);
+
+  // Labels
+  labelSumIn.textContent = `${incomes}€`;
+  labelSumOut.textContent = `${Math.abs(outcomes)}€`;
+  labelSumInterest.textContent = `${interest}€`;
+};
+calcDisplaySummary(account1.movements);
+
 const createUsernames = function (accs) {
   accs.forEach(function (acc) {
     acc.username = acc.owner
@@ -96,7 +121,7 @@ const createUsernames = function (accs) {
   });
 };
 createUsernames(accounts);
-console.log(accounts);
+// console.log(accounts);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -329,19 +354,30 @@ TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
 GOOD LUCK
 */
 
-const calcAverageHumanAge = function (arr) {
-  // This will return the sum of all of the converted dog ages to human ages, after certain filters where applied.
-  const humanAges = arr
-    .map(dogAge => (dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4))
-    .filter(calcHumanAge => calcHumanAge >= 18);
-  console.log(humanAges);
+// const calcAverageHumanAge = function (arr) {
+//   // This will return the sum of all of the converted dog ages to human ages, after certain filters where applied.
+//   const humanAges = arr
+//     .map(dogAge => (dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4))
+//     .filter(calcHumanAge => calcHumanAge >= 18);
+//   console.log(humanAges);
 
-  const sumHumanAges = humanAges.reduce(
-    (acc, currHumanAge) => acc + currHumanAge,
-    0
-  );
-  // Return the average value of the final human-converted dog ages.
-  return sumHumanAges / humanAges.length;
-};
+//   const sumHumanAges = humanAges.reduce(
+//     (acc, currHumanAge) => acc + currHumanAge,
+//     0
+//   );
+//   // Return the average value of the final human-converted dog ages.
+//   return sumHumanAges / humanAges.length;
+// };
 
-console.log(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]));
+// console.log(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]));
+
+// Chaining methods
+// const totalDepositsUSD = movements
+//   .filter(mov => mov > 0)
+//   .map((mov, i, arr) => {
+//     console.log(arr);
+//     return mov * euroToUSD;
+//   })
+//   .reduce((acc, curr) => (acc + curr), 0);
+
+// console.log(totalDepositsUSD);
