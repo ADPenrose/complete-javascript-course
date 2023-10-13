@@ -94,7 +94,7 @@ const displayMovements = function (movements, sort = false) {
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-        <div class="movements__value">${mov}€</div>
+        <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
 
@@ -104,18 +104,20 @@ const displayMovements = function (movements, sort = false) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance}€`;
+  labelBalance.textContent = `${acc.balance.toFixed(2)}€`;
 };
 
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
-    .reduce((acc, mov) => acc + mov, 0);
+    .reduce((acc, mov) => acc + mov, 0)
+    .toFixed(2);
   labelSumIn.textContent = `${incomes}€`;
 
   const out = acc.movements
     .filter(mov => mov < 0)
-    .reduce((acc, mov) => acc + mov, 0);
+    .reduce((acc, mov) => acc + mov, 0)
+    .toFixed(2);
   labelSumOut.textContent = `${Math.abs(out)}€`;
 
   const interest = acc.movements
@@ -125,7 +127,8 @@ const calcDisplaySummary = function (acc) {
       // console.log(arr);
       return int >= 1;
     })
-    .reduce((acc, int) => acc + int, 0);
+    .reduce((acc, int) => acc + int, 0)
+    .toFixed(2);
   labelSumInterest.textContent = `${interest}€`;
 };
 
@@ -164,7 +167,7 @@ btnLogin.addEventListener('click', function (e) {
   );
   console.log(currentAccount);
 
-  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+  if (currentAccount?.pin === +inputLoginPin.value) {
     // Display UI and message
     labelWelcome.textContent = `Welcome back, ${
       currentAccount.owner.split(' ')[0]
@@ -182,7 +185,7 @@ btnLogin.addEventListener('click', function (e) {
 
 btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
-  const amount = Number(inputTransferAmount.value);
+  const amount = +inputTransferAmount.value;
   const receiverAcc = accounts.find(
     acc => acc.username === inputTransferTo.value
   );
@@ -206,7 +209,7 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
-  const amount = Number(inputLoanAmount.value);
+  const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
@@ -223,7 +226,7 @@ btnClose.addEventListener('click', function (e) {
 
   if (
     inputCloseUsername.value === currentAccount.username &&
-    Number(inputClosePin.value) === currentAccount.pin
+    +inputClosePin.value === currentAccount.pin
   ) {
     const index = accounts.findIndex(
       acc => acc.username === currentAccount.username
@@ -251,3 +254,181 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+
+// // Converting strings to ints
+// console.log(Number('23'));
+// console.log(+'23');
+
+// // Parsing a number from a string. Base 10.
+// console.log(Number.parseInt('30px', 10));
+// // Parsing a number from a string. Base 2. Returns 3.
+// console.log(Number.parseInt('11px', 2));
+
+// // Parsing a float.
+// console.log(Number.parseFloat('2.5rem', 10));
+
+// // Check if a value is 'not a number' or NaN.
+// // Returns false
+// console.log(Number.isNaN(20));
+// // Returns false
+// console.log(Number.isNaN('20'));
+// // Returns true
+// console.log(Number.isNaN(+'20X'));
+
+// // Checking if values are numbers
+// // Returns true
+// console.log(Number.isFinite(20));
+// // Returns false
+// console.log(Number.isFinite('20'));
+// // Returns false
+// console.log(Number.isFinite(+'20X'));
+// // Returns false
+// console.log(Number.isFinite(23 / 0));
+
+// //  Square root
+// console.log(Math.sqrt(25));
+
+// // Root with exponenciation
+// console.log(25 ** (1 / 2));
+
+// // Max of given numbers. Does type coercion, but not parsing
+// // Gives 23
+// console.log(Math.max(5, 18, '23', 11, 2));
+// // Gives NaN
+// console.log(Math.max(5, 18, '23', '25px', 11, 2));
+
+// // Min of given numbers
+// // Gives 2
+// console.log(Math.min(5, 18, '23', 11, 2));
+
+// // Pi constant
+// console.log(Math.PI);
+
+// // Generate a random number between 0 and 1
+// console.log(Math.random());
+
+// // Deletes decimal part of a number
+// console.log(Math.trunc(2.5345345));
+
+// // Rounds a number to the nearest integer
+// console.log(Math.round(2.3));
+
+// // Rounds a number to the following upper integer.
+// console.log(Math.ceil(2.3));
+
+// // Rounds a number to the following lower integer.
+// console.log(Math.floor(2.3));
+
+// // Function that gives a random number between two numbers
+// const randomInt = (min, max) =>
+//   Math.floor(Math.random() * (max - min) + 1) + min;
+// console.log(randomInt(10, 20));
+
+// // Rounding to a certain number of decimal places. Returns a string
+// console.log((2.7).toFixed(0));
+// console.log((2.7).toFixed(3));
+// console.log(+(2.7567).toFixed(3));
+
+// // The Remainder Operator
+// console.log(5 % 2);
+
+// // Checking if the number is even or not (the remainder of dividing it by two is 0).
+// const isEven = num => num % 2 == 0;
+// console.log(isEven(8));
+// console.log(isEven(23));
+// console.log(isEven(514));
+
+// labelBalance.addEventListener('click', function () {
+//   [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+//     if (i % 2 === 0) row.style.backgroundColor = 'orangered';
+//     [...document.querySelectorAll('.movements__row')].forEach(function (
+//       row,
+//       i
+//     ) {
+//       if (i % 2 === 0) row.style.backgroundColor = 'orangered';
+//     });
+//   });
+// });
+
+// // Numeric Separators
+// const diameter = 287_460_000_000;
+// // Prints 287460000000
+// console.log(diameter);
+
+// // Invalid numeric separators
+// // const PI = _3._1416__;
+
+// // Numeric separators in strings (Invalid)
+// console.log(Number('23_000'));
+
+// // Bigint
+// console.log(2 ** 53 - 1);
+// console.log(Number.MAX_SAFE_INTEGER);
+
+// // Transforming a number into a BigInt
+// // Works for numbers as big as we want
+// console.log(23458072345890234589783920411111111111111111111111111111111n);
+// // Using the constructor with really big numbers also causes bugs
+// console.log(
+//   BigInt(23458072345890234589783920411111111111111111111111111111111)
+// );
+
+// // This is invalid
+// // const huge = 2341234412341234n;
+// // const num = 23;
+// // console.log(huge * num);
+
+// // This is valid
+// console.log(20n > 15);
+// // Since this values have different types, strict comparison will see them as different values
+// console.log(20n === 20);
+// // Here, the BigInt is converted into a string
+// const huge = 2341234412341234n;
+// console.log(huge + ' is REALLY big!!!');
+
+// // Division is truncated
+// // This gives 3n instead of 3.3333n
+// console.log(10n / 3n);
+
+// Create a date
+// const now = new Date();
+// console.log(now);
+
+// // Create a date by parsing a string. Not a good idea generally, unless the string was created by JS.
+// console.log(new Date('Oct 12 2023 20:36:51'));
+// console.log(new Date('December 24, 2015'));
+
+// console.log(new Date(account1.movementsDates[0]));
+
+// // Giving the constructor year, month (zero based), day, hour, minute, second
+// console.log(new Date(2037, 10, 19, 15, 23, 5));
+
+// // Passing ms with respect of the Unix time (01 Jan 1970)
+// console.log(new Date(0));
+// console.log(new Date(3 * 24 * 60 * 60 * 1000));
+
+// Working with dates
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future);
+
+// Get full year (NEVER USE getYear())
+console.log(future.getFullYear());
+// Get month (zero-based)
+console.log(future.getMonth());
+// Get day of the month
+console.log(future.getDate());
+// Get day of the week (Sunday => 0)
+console.log(future.getDay());
+// Get hours, minutes and seconds
+console.log(future.getHours());
+console.log(future.getMinutes());
+console.log(future.getSeconds());
+// Get a nicelly formatted string according to an ISO standard.
+console.log(future.toISOString());
+// Get the milliseconds that have passed since the Unix. This is called a timestamp.
+console.log(future.getTime());
+// Get the timestamp for the current moment in time.
+console.log(Date.now());
+// Updating values of a date object.
+console.log(future.setFullYear(2040));
+console.log(future);
