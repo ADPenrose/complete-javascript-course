@@ -7,6 +7,8 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -30,30 +32,87 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-// Select the entire document
-console.log(document.documentElement);
+// Button scrolling
+btnScrollTo.addEventListener('click', function (e) {
+  // const s1coords = section1.getBoundingClientRect();
+  // console.log(s1coords);
+  // // Get current element DOMrect
+  // console.log(e.target.getBoundingClientRect());
+  // // Getting current scroll
+  // console.log('Current scroll (X/Y)', window.scrollX, window.scrollY);
+  // // Getting height and width of the viewport
+  // console.log(
+  //   'height/width viewport',
+  //   document.documentElement.clientHeight,
+  //   document.documentElement.clientWidth
+  // );
 
-// Selecting the document's head and body
-console.log(document.head);
-console.log(document.body);
+  // Scrolling (wihtout animation)
+  // window.scrollTo(
+  //   s1coords.left + window.scrollX,
+  //   s1coords.top + window.scrollY
+  // );
+
+  // Scrolling (wth animation) OLD SCHOOL
+  // window.scrollTo({
+  //   left: s1coords.left + window.scrollX,
+  //   top: s1coords.top + window.scrollY,
+  //   behavior: 'smooth',
+  // });
+
+  // Button Scrolling (with animation) NEW SCHOOL
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
+
+// Page navigation (not efficient version)
+// document.querySelectorAll('.nav__link').forEach(function (el) {
+//   el.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+// Page navigation (thourgh event delegation)
+// 1. Add event listener to common parent of elements of interest
+// 2. Determine what element originated the event
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  console.log(e.target);
+  e.preventDefault();
+  // Matching strategy
+  if (
+    e.target.classList.contains('nav__link') &&
+    !e.target.classList.contains('nav__link--btn')
+  ) {
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// // Select the entire document
+// console.log(document.documentElement);
+
+// // Selecting the document's head and body
+// console.log(document.head);
+// console.log(document.body);
 
 // Using querySelector and querySelectorAll
 const header = document.querySelector('.header');
 const allSections = document.querySelectorAll('.section');
-console.log(allSections);
+// console.log(allSections);
 
 // Selecting element by id
 document.getElementById('section--1');
 
 // Selecting element by tag name
 const allButtons = document.getElementsByTagName('button');
-console.log(allButtons);
+// console.log(allButtons);
 
 // Selecting elements by class name
-console.log(document.getElementsByClassName('btn'));
+// console.log(document.getElementsByClassName('btn'));
 
 // Creating elements
 const message = document.createElement('div');
@@ -83,11 +142,11 @@ document
 // Set styles
 message.style.backgroundColor = '#37383d';
 message.style.width = '120%';
-// Read inline styles
-console.log(message.style.width);
-// Read styles that are not inline
-console.log(getComputedStyle(message).color);
-console.log(getComputedStyle(message).height);
+// // Read inline styles
+// console.log(message.style.width);
+// // Read styles that are not inline
+// console.log(getComputedStyle(message).color);
+// console.log(getComputedStyle(message).height);
 // Operating with styles
 message.style.height =
   Number.parseFloat(getComputedStyle(message).height, 10) + 40 + 'px';
@@ -120,37 +179,58 @@ message.style.height =
 // Don't use. This will format everything and only allow for one class.
 // logo.className = 'jonas'
 
-// Smooth scrolling
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
+// // Types of Events and Event Handlers
+// const h1 = document.querySelector('h1');
 
-btnScrollTo.addEventListener('click', function (e) {
-  const s1coords = section1.getBoundingClientRect();
-  console.log(s1coords);
-  // Get current element DOMrect
-  console.log(e.target.getBoundingClientRect());
-  // Getting current scroll
-  console.log('Current scroll (X/Y)', window.scrollX, window.scrollY);
-  // Getting height and width of the viewport
-  console.log(
-    'height/width viewport',
-    document.documentElement.clientHeight,
-    document.documentElement.clientWidth
-  );
+// // Removing event listeners
+// const alertH1 = function (e) {
+//   alert('addEventLister: Great! You are reading the heading.');
+//   // We can remove it here:
+//   // h1.removeEventListener('mouseenter', alertH1);
+// };
 
-  // Scrolling (wihtout animation)
-  // window.scrollTo(
-  //   s1coords.left + window.scrollX,
-  //   s1coords.top + window.scrollY
-  // );
+// // Mouse enter
+// h1.addEventListener('mouseenter', alertH1);
 
-  // Scrolling (wth animation) OLD SCHOOL
-  // window.scrollTo({
-  //   left: s1coords.left + window.scrollX,
-  //   top: s1coords.top + window.scrollY,
-  //   behavior: 'smooth',
-  // });
+// // Or here:
+// setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
 
-  // Scrolling (with animation) NEW SCHOOL
-  section1.scrollIntoView({ behavior: 'smooth' });
-});
+// // Using onevent properties
+// h1.onmouseenter = function (e) {
+//   alert('onmouseenter: Great! You are reading the heading.');
+// };
+
+// Generating a random color
+// const randomInt = (min, max) =>
+//   Math.floor(Math.random() * (max - min + 1) + min);
+
+// const randomColor = () =>
+//   `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+
+// console.log(randomColor());
+
+// // e.target points to the element where the event was originated
+// // e.currentTarget points to the element to which the event handler is attached === this keyword
+// document.querySelector('.nav__link').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('LINK', e.target, e.currentTarget);
+//   // Stop propagation
+//   // e.stopPropagation();
+// });
+
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('CONTAINER', e.target, e.currentTarget);
+//   // Stop propagation
+//   // e.stopPropagation();
+// });
+
+// // Setting the event listener to listen in catching instead of bubbling
+// document.querySelector('.nav').addEventListener(
+//   'click',
+//   function (e) {
+//     this.style.backgroundColor = randomColor();
+//     console.log('NAV', e.target, e.currentTarget);
+//   }
+//   // true
+// );
