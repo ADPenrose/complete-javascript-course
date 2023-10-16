@@ -234,3 +234,37 @@ message.style.height =
 //   }
 //   // true
 // );
+
+const h1 = document.querySelector('h1');
+
+// Going downwards: selecting children
+// This will go as deep as the DOM tree, and only select direct children of h1.
+console.log(h1.querySelectorAll('.highlight'));
+// Get every single node that is a child of h1. Returns NodeList.
+console.log(h1.childNodes);
+// Returns elements that are children of h1. Returns an HTMLCollection.
+console.log(h1.children);
+// Selecting first and last element children.
+h1.firstElementChild.style.color = 'white';
+h1.lastElementChild.style.color = 'orangered';
+
+// Going upwards: selecting parents
+// These two do the same
+console.log(h1.parentNode);
+console.log(h1.parentElement);
+// Select the closest parent element with a given selector
+h1.closest('.header').style.background = 'var(--gradient-secondary)';
+// If the selector matches the element on which we are calling the closest method, that is the element that will be selected
+h1.closest('h1').style.background = 'var(--gradient-primary)';
+
+// Going sideways: selecting siblings (only the immediate previous and next)
+console.log(h1.previousElementSibling);
+console.log(h1.nextElementSibling);
+// Not so used
+console.log(h1.previousSibling);
+console.log(h1.nextSibling);
+// To get all siblings, we can go to the parent element and read all of the children from there
+console.log(h1.parentElement.children);
+[...h1.parentElement.children].forEach(function (el) {
+  if (el !== h1) el.style.transform = 'scale(0.5)';
+});
