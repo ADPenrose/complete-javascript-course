@@ -463,42 +463,128 @@ GOOD LUCK 😀
 // jay.introduce();
 // jay.calcAge();
 
-class Account {
-  constructor(owner, currency, pin) {
-    this.owner = owner;
-    this.currency = currency;
-    this.pin = pin;
-    this.movements = [];
-    this.locale = navigator.language;
-    // This is executed every time an object instance is created
-    console.log(`Thanks for opening an account, ${owner}`);
+// class Account {
+//   // 1) Public fields (instances)
+//   locale = navigator.language;
+
+//   // 2) Private fields (instances)
+//   #movements = [];
+//   #pin;
+
+//   constructor(owner, currency, pin) {
+//     this.owner = owner;
+//     this.currency = currency;
+//     this.#pin = pin;
+//     console.log(`Thanks for opening an account, ${owner}`);
+//   }
+//   // 3. Public methods
+//   // Public interface for getting movements.
+//   getMovements() {
+//     return this.#movements;
+//   }
+
+//   // It is a best practice to avoid modifying properties directly, and instead do it through methods. This is the public interface, which means that it can be accessed by anyone.
+//   deposit(val) {
+//     this.#movements.push(val);
+//     return this;
+//   }
+
+//   withdrawal(val) {
+//     this.deposit(-val);
+//     return this;
+//   }
+
+//   requestLoan(val) {
+//     if (this.#approveLoan(val)) {
+//       this.deposit(val);
+//       console.log('Loan approved');
+//       return this;
+//     }
+//   }
+
+//   // 4. Private methods
+//   #approveLoan(val) {
+//     return true;
+//   }
+
+//   static helper() {
+//     console.log('Help');
+//   }
+// }
+
+// const acc1 = new Account('Jonas', 'EUR', 1111);
+// acc1.deposit(250);
+// acc1.withdrawal(-140);
+// acc1.requestLoan(1000);
+// console.log(acc1.getMovements());
+// console.log(acc1);
+// Account.helper();
+
+// // Chaining methods
+// acc1
+//   .deposit(300)
+//   .deposit(500)
+//   .withdrawal(35)
+//   .requestLoan(25000)
+//   .withdrawal(4000);
+
+///////////////////////////////////////
+// Coding Challenge #4
+
+/* 
+1. Re-create challenge #3, but this time using ES6 classes: create an 'EVCl' child class of the 'CarCl' class
+2. Make the 'charge' property private;
+3. Implement the ability to chain the 'accelerate' and 'chargeBattery' methods of this class, and also update the 'brake' method in the 'CarCl' class. They experiment with chining!
+
+DATA CAR 1: 'Rivian' going at 120 km/h, with a charge of 23%
+
+GOOD LUCK 😀
+*/
+
+class CarCl {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
   }
 
-  // It is a best practice to avoid modifying properties directly, and instead do it through methods. This is the public interface, which means that it can be accessed by anyone.
-  deposit(val) {
-    this.movements.push(val);
+  accelerate() {
+    this.speed += 10;
+    console.log(`${this.make} is going at ${this.speed} km/h`);
   }
 
-  withdrawal(val) {
-    this.deposit(-val);
-  }
-
-  // THIS SHOULD NOT BE AVAILABLE FOR OTHERS THAN THE REQUESTLOAN METHOD. To achieve it, we can use data encapsulation.
-  approveLoan(val) {
-    return true;
-  }
-
-  requestLoan(val) {
-    if (this.approveLoan(val)) {
-      this.deposit(val);
-      console.log('Loan approved');
-    }
+  brake() {
+    this.speed -= 5;
+    console.log(`${this.make} is going at ${this.speed} km/h`);
+    return this;
   }
 }
 
-const acc1 = new Account('Jonas', 'EUR', 1111);
-acc1.deposit(250);
-acc1.withdrawal(-140);
-acc1.requestLoan(1000);
+// 1.
+class EVCl extends CarCl {
+  // 2.
+  #charge;
+  constructor(make, speed, charge) {
+    super(make, speed);
+    this.#charge = charge;
+  }
 
-console.log(acc1);
+  chargeBattery(chargeTo) {
+    this.#charge = chargeTo;
+    return this;
+  }
+
+  accelerate() {
+    this.speed += 20;
+    this.#charge--;
+    console.log(
+      `${this.make} going at ${this.speed} km/h, with a charge of ${
+        this.#charge
+      }%`
+    );
+    return this;
+  }
+}
+
+const car1 = new EVCl('Rivian', 120, 23);
+console.log(car1);
+car1.chargeBattery(95).accelerate().brake();
