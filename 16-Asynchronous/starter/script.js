@@ -201,10 +201,143 @@ GOOD LUCK 😀
 */
 
 // 1.
-const whereAmI = function (lat, lng) {
-  fetch(
-    `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`
-  )
+// const whereAmI = function (lat, lng) {
+//   fetch(
+//     `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`
+//   )
+//     .then(response => {
+//       // If the status is different than 200, we need to throw an error for all possible responses.
+//       // According to the API docs, there are only 4 bad responses, but I will only implement one
+//       // for the sake of time.
+//       if (!response.ok) {
+//         throw new Error(
+//           `There was a problem with the structure of your request. Please verify it and try again (${response.status})`
+//         );
+//       }
+//       return response.json();
+//     })
+//     .then(data => {
+//       console.log(`You are in ${data.city}, ${data.countryName}`);
+//       return fetch(
+//         `https://countries-api-836d.onrender.com/countries/name/${data.countryName}`
+//       );
+//     })
+//     .then(response => {
+//       if (!response.ok) {
+//         throw new Error(`Country not found (${response.status})`);
+//       }
+//       return response.json();
+//     })
+//     .then(data => renderCountry(data[0]))
+//     .catch(err => console.error(err.message))
+//     .finally(() => (countriesContainer.style.opacity = 1));
+// };
+
+// whereAmI(52.508, 13.381);
+// whereAmI(19.037, 72.873);
+// whereAmI(-33.933, 18.474);
+
+// console.log('Test Start');
+// setTimeout(() => console.log('0 sec timer'), 0);
+// Promise.resolve('Resolved promise 1').then(res => console.log(res));
+// Promise.resolve('Resolved promise 2').then(res => {
+//   // Generating a blocking event through a really long task on a promise
+//   for (let i = 0; i < 10000000000; i++) {}
+//   console.log(res);
+// });
+// console.log('Test End');
+
+// Creating a promises
+// The promise constructor function takes only one argument, which is called
+// the executor function. It is executed as soon as the object is created.
+// Now, two functions are passed into the executor function, which are
+// the resolve and the reject functions.
+// const lotteryPromise = new Promise(function (resolve, reject) {
+//   console.log('Lottery draw is happening!');
+//   // Timeout that simulates waiting for a result.
+//   setTimeout(function () {
+//     // Here, the future value for the promise is produced.
+//     if (Math.random() >= 0.5) {
+//       // Settles the promise as fulfilled.
+//       // Into this function, we pass the fullfiled value of the promise so that it
+//       // can later be consumed and dealt with using the then function.
+//       resolve('You win!');
+//     } else {
+//       // Settles the promise as rejected.
+//       // Data inside of this function can be later dealt with using the catch function.
+//       // reject('You lost your money :c');
+//       reject(new Error('You lost your money :c'));
+//     }
+//   }, 2000);
+// });
+
+// // Consuming the promise
+// lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
+
+// // Promisifying the setTimeout function.
+// const wait = function (seconds) {
+//   // Since it's impossible for a timer to fail, we can ommit the reject function.
+//   return new Promise(function (resolve) {
+//     // We can just resolve promises without giving them a value.
+//     setTimeout(resolve, seconds * 1000);
+//   });
+// };
+
+// With promises
+// wait(1)
+//   .then(res => {
+//     console.log('I waited for 1 seconds');
+//     return wait(1);
+//   })
+//   .then(res => {
+//     console.log('I waited for 2 seconds');
+//     return wait(1);
+//   })
+//   .then(res => {
+//     console.log('I waited for 3 seconds');
+//     return wait(1);
+//   })
+//   .then(() => console.log('I waited for 4 second'));
+
+// With callbacks (callback hell)
+// setTimeout(() => {
+//   console.log('1 second passed');
+//   setTimeout(() => {
+//     console.log('2 seconds passed');
+//     setTimeout(() => {
+//       console.log('3 second passed');
+//       setTimeout(() => {
+//         console.log('4 second passed');
+//       }, 1000);
+//     }, 1000);
+//   }, 1000);
+// }, 1000);
+
+// Creating a fulfilled/rejected promise immediately.
+// Promise.resolve('Resolved immediately').then(x => console.log(x));
+// Promise.reject(new Error('Rejected immediately')).catch(x => console.error(x));
+
+// Promisifying a call to the Geolocation API
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    // navigator.geolocation.getCurrentPosition(
+    //   position => resolve(position),
+    //   err => reject(err)
+    // );
+    // A simpler way
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+const whereAmI = function () {
+  getPosition()
+    .then(pos => {
+      const { latitude: lat, longitude: lng } = pos.coords;
+      console.log(lat, lng);
+      return fetch(
+        `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`
+      );
+    })
     .then(response => {
       // If the status is different than 200, we need to throw an error for all possible responses.
       // According to the API docs, there are only 4 bad responses, but I will only implement one
@@ -233,6 +366,4 @@ const whereAmI = function (lat, lng) {
     .finally(() => (countriesContainer.style.opacity = 1));
 };
 
-whereAmI(52.508, 13.381);
-whereAmI(19.037, 72.873);
-whereAmI(-33.933, 18.474);
+btn.addEventListener('click', whereAmI);
