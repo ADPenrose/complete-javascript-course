@@ -5,18 +5,26 @@
 // addToCart('bread', 5);
 // console.log(price, qt);
 
-console.log('Importing module');
+// console.log('Importing module');
 
-// Importing all of the exports of a module at once.
-// import * as ShoppingCart from './shoppingCart.js';
-// ShoppingCart.addToCart('bread', 5);
+// // Importing all of the exports of a module at once.
+// // import * as ShoppingCart from './shoppingCart.js';
+// // ShoppingCart.addToCart('bread', 5);
 
-// Importing the default export of a module.
-import add from './shoppingCart.js';
-add('pizza', 2);
+// // Importing the default export of a module.
+// import add from './shoppingCart.js';
+// add('pizza', 2);
 
 // Mixing default and named imports. USUALLY NOT DONE IN PRACTICE.
 // import add, { totalPrice as price, qt } from './shoppingCart.js';
+
+import add, { cart } from './shoppingCart.js';
+add('pizza', 2);
+add('bread', 5);
+add('apples', 4);
+console.log(cart);
+
+// console.log(cart);
 
 // This will not work, since the value is not exported in the module.
 // console.log(shippingCost);
@@ -26,12 +34,12 @@ add('pizza', 2);
 // const data = await res.json();
 // console.log(data);
 
-const getLastPost = async function () {
-  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
-  const data = await res.json();
-  console.log(data);
-  return { title: data.at(-1).title, text: data.at(-1).body };
-};
+// const getLastPost = async function () {
+//   const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+//   const data = await res.json();
+//   console.log(data);
+//   return { title: data.at(-1).title, text: data.at(-1).body };
+// };
 
 // Using the then method to consume the promise. Not very clean.
 // const lastPost = getLastPost();
@@ -76,3 +84,48 @@ const getLastPost = async function () {
 
 // // Import
 // const { addToCart } = requiere('/shoppingCart.js');
+
+// Introduction to NPM
+// Importing modules without NPM
+// import cloneDeep from '../node_modules/lodash-es/cloneDeep.js';
+// Importing modules using Parcel
+import cloneDeep from 'lodash-es';
+
+const state = {
+  cart: [
+    { product: 'bread', quantity: 5 },
+    { product: 'pizza', quantity: 5 },
+  ],
+  user: { loggedIn: true },
+};
+// Shallow copy
+const stateClone = Object.assign({}, state);
+// Deep copy
+const stateDeepClone = cloneDeep(state);
+state.user.loggedIn = false;
+
+console.log(stateClone);
+console.log(stateDeepClone);
+
+// Hot Module Replacement
+if (module.hot) {
+  module.hot.accept();
+}
+
+class Person {
+  greeting = 'Hey';
+  constructor(name) {
+    this.name = name;
+    console.log(`${this.greeting}, ${this.name}`);
+  }
+}
+
+const jonas = new Person('Jonas');
+
+Promise.resolve('Test');
+
+// Polyfilling
+import 'core-js/stable';
+
+// Polyfilling async functions
+import 'regenerator-runtime/runtime.js';

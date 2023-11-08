@@ -8,7 +8,7 @@ console.log('Exporting module');
 
 // We can only use these values here, in this file.
 const shippingCost = 10;
-const cart = [];
+export const cart = [];
 
 // Named export.
 // export const addToCart = function (product, quantity) {
